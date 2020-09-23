@@ -67,5 +67,6 @@ export function createElement(type, attributes, ...children) {
 }
 
 export function render(component, parentElement) {
+    console.log(component);
     parentElement.appendChild(component.root);
 }
