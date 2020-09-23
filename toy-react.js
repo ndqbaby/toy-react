@@ -40,7 +40,7 @@ export class Component {
 export function createElement(type, attributes, ...children) {
     let e;
     if (typeof type === "string") {
-        e = ElementWrapper(type);
+        e = new ElementWrapper(type);
     } else {
         e = new type;
     }
@@ -50,15 +50,22 @@ export function createElement(type, attributes, ...children) {
             e.setAttribute(p, attributes[p]);
         }
     }
-    for (let child of children) {
-        if (typeof child === 'string') {
-            child = TextWrapper(child);
+    const insertChildren = function (children) {
+        for (let child of children) {
+            if (typeof child === 'string') {
+                child = new TextWrapper(child);
+            }
+            if(typeof child === 'object' && child instanceof Array){
+                insertChildren(child);
+            } else {
+                e.appendChild(child);
+            }
         }
-        e.appendChild(child);
-    }
+    };
+    insertChildren(children);
     return e;
 }
 
 export function render(component, parentElement) {
-    parentElement.append(component.root);
+    parentElement.appendChild(component.root);
 }
