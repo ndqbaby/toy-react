@@ -9,7 +9,7 @@ class ElementWrapper {
         //\s\S表示所有的字符
         if (name.match(/^on([\s\S]+)$/)) {
             //保证事件小写开头
-            this.root.addEventListener(RegExp.$1.replace(/^[/s/S]/, c => c.toLowerCase()), value);
+            this.root.addEventListener(RegExp.$1.replace(/^[\s\S]/, c => c.toLowerCase()), value);
         } else {
             this.root.setAttribute(name, value);
         }
