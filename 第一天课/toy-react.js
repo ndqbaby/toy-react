@@ -31,7 +31,7 @@ export class Component {
     }
     get root(){
         if(!this._root){
-            this._root = this.render().root; //得到render后的root
+            this._root = this.render().root; //得到render后的root 这里其实存在一个递归，当this.render()是一个Component对象那么就会取这个Component的root
         }
         return this._root;
     }
